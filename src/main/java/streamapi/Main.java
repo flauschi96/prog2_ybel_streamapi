@@ -2,6 +2,7 @@ package streamapi;
 
 import java.io.InputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /** Starter for the stream api task. */
 public class Main {
@@ -54,15 +55,12 @@ public class Main {
     public static Set<Integer> ifmCps(List<Student> studentList) {
         // TODO
         Set<Integer> result = new HashSet<>();
-        Integer i = 0;
-        for (Student v : studentList) {
-            if (v.isIFM()) {
-                i = v.cps();
-                result.add(i);
-            }
-        }
+         return studentList.stream()
+             .filter(Student::isIFM)
+             .map(Student::cps)
+             .collect(Collectors.toSet());
+         // 35 kommt nur einmal vor weil es 35 nur einmal in einer Menge gibt
 
-        return result;
     }
 
     /**
