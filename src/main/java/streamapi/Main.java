@@ -1,9 +1,15 @@
 package streamapi;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
+import java.util.stream.Collectors;
 
-/** Starter for the stream api task. */
+/**
+ * Starter for the stream api task.
+ */
 public class Main {
     /**
      * And go.
@@ -19,7 +25,7 @@ public class Main {
         // Task III: Random
 
         // Task IV+V: Resources
-
+        System.out.println(resources("file.txt"));
     }
 
     /**
@@ -59,6 +65,7 @@ public class Main {
         // TODO
         throw new UnsupportedOperationException();
     }
+    // Resources nicht hinterlegt also standart path src/main/resources
 
     /**
      * Task IV: Open resources.
@@ -70,8 +77,9 @@ public class Main {
      * @return An open {@link InputStream} for the resource file
      */
     private static InputStream getResourceAsStream(String path) {
-        // TODO
-        throw new UnsupportedOperationException();
+        InputStream inputdata = Main.class.getClassLoader().getResourceAsStream("streamapi/" + path);
+        return inputdata;
+
     }
 
     /**
@@ -86,6 +94,17 @@ public class Main {
      */
     public static String resources(String path) {
         // TODO
-        throw new UnsupportedOperationException();
+
+        try (InputStream stream = getResourceAsStream(path)) {
+            BufferedReader r = new BufferedReader(new InputStreamReader(stream));
+            return r.lines().filter(line -> line
+                    .startsWith("a") && line.length() >= 2)
+                .collect(Collectors.joining("\n"));
+
+        } catch (IOException e) {
+            System.err.println("Ouch, that didn't work: \n" + e.getMessage());
+            return "";
+        }
+
     }
 }
