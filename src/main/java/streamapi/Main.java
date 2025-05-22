@@ -6,7 +6,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
 
-/** Starter for the stream api task. */
+/**
+ * Starter for the stream api task.
+ */
 public class Main {
     /**
      * And go.
@@ -62,6 +64,7 @@ public class Main {
         // TODO
         throw new UnsupportedOperationException();
     }
+    // Resources nicht hinterlegt also standart path src/main/resources
 
     /**
      * Task IV: Open resources.
@@ -73,8 +76,9 @@ public class Main {
      * @return An open {@link InputStream} for the resource file
      */
     private static InputStream getResourceAsStream(String path) {
-        // TODO
-        throw new UnsupportedOperationException();
+        InputStream inputdata = Main.class.getClassLoader().getResourceAsStream("streamapi/" + path);
+            return inputdata;
+
     }
 
     /**
